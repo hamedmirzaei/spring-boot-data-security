@@ -8,14 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -29,7 +22,7 @@ public class ApplicationServiceConfiguration extends WebSecurityConfigurerAdapte
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/index", "/js/*", "/css/*").permitAll()
+                .antMatchers("/", "/h2**", "/index", "/js/*", "/css/*").permitAll()
                 .antMatchers("/products").authenticated()
                 //.anyRequest().authenticated()
                 .and().httpBasic();
@@ -44,7 +37,8 @@ public class ApplicationServiceConfiguration extends WebSecurityConfigurerAdapte
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        //daoAuthenticationProvider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        daoAuthenticationProvider.setPasswordEncoder(new BCryptPasswordEncoder(9));//there is a bug with this encode. It only matches those hashes that starts with '$2a'
         return daoAuthenticationProvider;
     }
 
