@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>Spring Security Demo</title>
+
+    <link rel="stylesheet" th:href="@{jquery-ui.css}"/>
+    <link rel="stylesheet" th:href="@{bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{css/site.css}"/>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Spring Security Demo</a>
+        </div>
+    </div>
+</nav>
+<br>
+<br>
+
+<div class="container text-center pagination-centered">
+    <div class="page-header">
+        <h3>This is a demo of Spring Boot + Data + Security</h3>
+    </div>
+
+    <span>
+        We have a module which exposes controller on localhost:8281/api/products to provide
+        product information to other services. Our product-app module uses that service
+        and the features of Spring Security to control and manage request from outside.
+    </span>
+
+    <br>
+
+    <a href="/products">View Products</a>
+
+</div>
+<br>
+<footer class="footer navbar-inverse navbar-fixed-bottom">
+    <div class="container text-center pagination-centered text-muted">
+        @Copyright 2019 Hamed Mirzaei
+    </div>
+</footer>
+
+<script th:src="@{jquery-1.12.4.min.js}"></script>
+<script th:src="@{jquery-ui.min.js}"></script>
+<script src="js/site.js"></script>
+</body>
+</html>
