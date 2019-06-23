@@ -3,6 +3,7 @@ package spring.boot.data.security.productapp.controller;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +28,8 @@ public class AppController {
     }
 
     @GetMapping("/products")
-    private String products(Model model) {
+    @PreAuthorize("hasRole('ROLE_USER')")
+    private String getProducts(Model model) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<List<Product>> productsResponse = restTemplate.exchange(
                 PRODUCTS_URI, HttpMethod.GET, null,
@@ -37,5 +39,13 @@ public class AppController {
         model.addAttribute("products", products);
         return "products";
     }
+
+    @GetMapping("/addproducts")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    private String getAddProductForm(Model model) {
+        model.addAttribute("msg", "Hello");
+        return "addproduct";
+    }
+
 
 }

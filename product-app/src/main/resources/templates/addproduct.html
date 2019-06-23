@@ -7,8 +7,15 @@
 
     <title>Spring Security Demo</title>
 
+    <script th:src="@{jquery-1.12.4.min.js}"></script>
+    <script th:src="@{jquery-ui.min.js}"></script>
     <link rel="stylesheet" th:href="@{jquery-ui.css}"/>
     <link rel="stylesheet" th:href="@{bootstrap.min.css}"/>
+    <style>
+        .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+            background-color: #d8d9de;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -16,6 +23,10 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Spring Security Demo</a>
         </div>
+        <ul class="nav navbar-nav">
+            <li><a href="/products">Products</a></li>
+            <li class="active"><a href="/addproducts">Add Product</a></li>
+        </ul>
     </div>
 </nav>
 <br>
@@ -23,20 +34,9 @@
 
 <div class="container text-center pagination-centered">
     <div class="page-header">
-        <h3>This is a demo of Spring Boot + Data + Security</h3>
+        <h3>Add a Product</h3>
     </div>
 
-    <span>
-        We have a module which exposes controller on localhost:8281/api/products to provide
-        product information to other services. Our product-app module uses that service
-        and the features of Spring Security to control and manage request from outside.
-    </span>
-
-    <br>
-
-    <a href="/products">View Products</a>
-    <br>
-    <a href="/addproducts">Add a Product</a>
 
 </div>
 <br>
@@ -46,7 +46,5 @@
     </div>
 </footer>
 
-<script th:src="@{jquery-1.12.4.min.js}"></script>
-<script th:src="@{jquery-ui.min.js}"></script>
 </body>
 </html>
