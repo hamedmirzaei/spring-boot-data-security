@@ -25,16 +25,19 @@ public class ApplicationServiceConfiguration extends WebSecurityConfigurerAdapte
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .headers()
+                    .contentTypeOptions().disable()
+                    .frameOptions().disable()
+                .and()
+                .csrf()
+                    .disable()
                 .authorizeRequests()
                 .antMatchers("/", "/h2**", "/index", "/js/*", "/css/*").permitAll()
-                .antMatchers("/products", "/addproducts").authenticated()
+                .antMatchers("/products").authenticated()
+                .antMatchers("/addproducts").hasAnyRole("ADMIN")
                 //.anyRequest().permitAll()
-                .and().httpBasic()
                 .and()
-                .headers()
-                .contentTypeOptions().disable()
-                .frameOptions().disable();
+                    .httpBasic();
     }
 
     @Override
