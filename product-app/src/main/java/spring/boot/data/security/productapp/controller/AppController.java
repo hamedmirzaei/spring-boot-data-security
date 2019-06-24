@@ -29,7 +29,7 @@ public class AppController {
 
     @GetMapping("/products")
     @PreAuthorize("hasRole('ROLE_USER')")
-    private String getProducts(Model model) {
+    public String getProducts(Model model) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<List<Product>> productsResponse = restTemplate.exchange(
                 PRODUCTS_URI, HttpMethod.GET, null,
@@ -42,7 +42,7 @@ public class AppController {
 
     @GetMapping("/addproducts")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    private String getAddProductForm(Model model) {
+    public String getAddProductForm(Model model) {
         model.addAttribute("msg", "Hello");
         return "addproduct";
     }

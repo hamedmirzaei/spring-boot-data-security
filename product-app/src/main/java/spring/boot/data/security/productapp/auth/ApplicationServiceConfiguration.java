@@ -33,8 +33,7 @@ public class ApplicationServiceConfiguration extends WebSecurityConfigurerAdapte
                     .disable()
                 .authorizeRequests()
                 .antMatchers("/", "/h2**", "/index", "/js/*", "/css/*").permitAll()
-                .antMatchers("/products").authenticated()
-                .antMatchers("/addproducts").hasAnyRole("ADMIN")
+                .antMatchers("/products", "/addproducts").authenticated()
                 //.anyRequest().permitAll()
                 .and()
                     .httpBasic();
@@ -49,7 +48,6 @@ public class ApplicationServiceConfiguration extends WebSecurityConfigurerAdapte
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setUserDetailsService(userDetailsService);
-        //provider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
         provider.setPasswordEncoder(new BCryptPasswordEncoder(9));//there is a bug with this encode. It only matches those hashes that starts with '$2a'
         provider.setAuthoritiesMapper(authoritiesMapper());
         return provider;
